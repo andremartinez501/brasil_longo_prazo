@@ -101,7 +101,7 @@ def calcular_taxa_mensal(taxa_anual):
 
 #Função para exibir as taxas mensais para todos os meses de cada ano em porcentagem
 def exibir_taxas_mensais(df_focado):
-    # Lista de abreviações dos meses em português
+    
     meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
     
     for _, row in df_focado.iterrows():
