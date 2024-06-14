@@ -44,8 +44,12 @@ try:
 finally:
     driver.quit()
 
-#Caminho do arquivo baixado
-file_path = os.path.join(download_dir, 'Projecoes_de_Longo_Prazo_Itau_BRASIL_mai24.xlsx')
+#Buscar o arquivo baixado mais recente no diretório de download
+def ultimo_arquivo(diretorio):
+    files = [os.path.join(diretorio, f) for f in os.listdir(diretorio)]
+    return max(files, key=os.path.getctime)
+
+file_path = ultimo_arquivo(download_dir)
 
 #Carregar o arquivo Excel em um DataFrame do pandas tendo a segunda linha como cabeçalho
 df = pd.read_excel(file_path, header=1)
@@ -73,8 +77,8 @@ df_taxa_juros = df.loc[taxa_juros_idx+1:financas_publicas_idx-1].reset_index(dro
 #Remover as linhas de índice "Selic - média do ano", "TJLP (taxa nominal) - fim de periodo" e "TLP (taxa real)" na seção "Taxa de Juros"
 df_taxa_juros = df_taxa_juros.drop(index=[1, 5, 6]).reset_index(drop=True)
 
-#Selecionar as colunas específicas 2024P, 2025P, 2026P, 2027P para cada seção
-colunas_desejadas = ['2024P', '2025P', '2026P', '2027P']
+#Identificar dinamicamente as colunas que contêm os anos desejados
+colunas_desejadas = [col for col in df.columns if isinstance(col, str) and col.endswith('P') and col[:-1].isdigit()]
 
 df_inflacao_focado = df_inflacao.loc[:, colunas_desejadas]
 df_taxa_juros_focado = df_taxa_juros.loc[:, colunas_desejadas]
