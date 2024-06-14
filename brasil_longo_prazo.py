@@ -77,7 +77,7 @@ df_taxa_juros = df.loc[taxa_juros_idx+1:financas_publicas_idx-1].reset_index(dro
 #Remover as linhas de índice "Selic - média do ano", "TJLP (taxa nominal) - fim de periodo" e "TLP (taxa real)" na seção "Taxa de Juros"
 df_taxa_juros = df_taxa_juros.drop(index=[1, 5, 6]).reset_index(drop=True)
 
-#Identificar dinamicamente as colunas que contêm os anos desejados
+#Identificar as colunas que contêm os anos desejados
 colunas_desejadas = [col for col in df.columns if isinstance(col, str) and col.endswith('P') and col[:-1].isdigit()]
 
 df_inflacao_focado = df_inflacao.loc[:, colunas_desejadas]
