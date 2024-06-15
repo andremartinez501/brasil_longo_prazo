@@ -46,8 +46,8 @@ finally:
 
 #Buscar o arquivo baixado mais recente no diretório de download
 def ultimo_arquivo(diretorio):
-    files = [os.path.join(diretorio, f) for f in os.listdir(diretorio)]
-    return max(files, key=os.path.getctime)
+    arquivos = [os.path.join(diretorio, f) for f in os.listdir(diretorio)]
+    return max(arquivos, key=os.path.getctime)
 
 file_path = ultimo_arquivo(download_dir)
 
